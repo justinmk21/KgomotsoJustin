@@ -5,12 +5,18 @@ import Cosmetic from "../assets/promo2.jpg";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { projects, socialLinks } from "../constant";
+import { useForm, ValidationError } from "@formspree/react"
 
 
 function Home() {
     const [isDark, setIsDark] = useDarkMode();
     const [add, setAdd] = useState(2);
     const navigate = useNavigate();
+    const [state, handleSubmit] = useForm("xbdaapal");
+
+    if (state.succeeded) {
+        return <p>Thanks for your message. I will get back to you as soon as possible.</p>
+    }
 
     const handleLink = (link) => {
         window.open(link, "_blank");
@@ -308,26 +314,30 @@ function Home() {
                         </div>
                         <div className="bg-white dark:bg-slate-800 p-8 md:p-12 rounded-3xl shadow-xl">
                             <h3 className="text-2xl font-bold mb-8">Send me a message</h3>
-                            <form className="space-y-6">
+                            <form onSubmit={handleSubmit}  className="space-y-6">
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <label className="text-sm font-bold opacity-60 ml-1">Name</label>
-                                        <input className="w-full px-4 py-3 rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-primary focus:border-primary" placeholder="John Doe" type="text"/>
+                                        <label htmlFor="name" className="text-sm font-bold opacity-60 ml-1">Name</label>
+                                        <input className="w-full px-4 py-3 rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-primary focus:border-primary" placeholder="John Doe" type="text" id="name" name="name"/>
+                                        <ValidationError prefix="Name" field="name" errors={state.errors} />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-sm font-bold opacity-60 ml-1">Email</label>
-                                        <input className="w-full px-4 py-3 rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-primary focus:border-primary" placeholder="john@example.com" type="email"/>
+                                        <label htmlFor="email" className="text-sm font-bold opacity-60 ml-1">Email</label>
+                                        <input className="w-full px-4 py-3 rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-primary focus:border-primary" placeholder="john@example.com" type="email" id="email" name="email"/>
+                                        <ValidationError prefix="Email" field="email" errors={state.errors} />
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-sm font-bold opacity-60 ml-1">Subject</label>
-                                    <input className="w-full px-4 py-3 rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-primary focus:border-primary" placeholder="Project Inquiry" type="text"/>
+                                    <label htmlFor="subject" className="text-sm font-bold opacity-60 ml-1">Subject</label>
+                                    <input className="w-full px-4 py-3 rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-primary focus:border-primary" placeholder="Project Inquiry" type="text" id="subject" name="subject"/>
+                                    <ValidationError prefix="Subject" field="subject" errors={state.errors} />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-sm font-bold opacity-60 ml-1">Message</label>
-                                    <textarea className="w-full px-4 py-3 rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-primary focus:border-primary" placeholder="How can I help you?" rows="4"></textarea>
+                                    <label htmlFor="message" className="text-sm font-bold opacity-60 ml-1">Message</label>
+                                    <textarea className="w-full px-4 py-3 rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-primary focus:border-primary" placeholder="How can I help you?" rows="4" id="message" name="message"></textarea>
+                                    <ValidationError prefix="Message" field="message" errors={state.errors} />
                                 </div>
-                                <button className="w-full py-4 vibrant-gradient text-white font-bold rounded-2xl hover:shadow-xl transition-all hover:scale-[1.01]" type="submit">
+                                <button  className="w-full py-4 vibrant-gradient text-white font-bold rounded-2xl hover:shadow-xl transition-all hover:scale-[1.01]" type="submit" disabled={state.submitting} >
                                     Send Message
                                 </button>
                             </form>
