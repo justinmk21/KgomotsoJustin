@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Footer from './ui/footer'
 import Detail from './pages/Detail'
 import ScrollToTop from './ScrollToTop'
+import Thanks from './pages/Thanks'
 
 function App() {
   
@@ -14,6 +15,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/detail/:id' element={<Detail />} />
+      <Route path='/thanks' element={<Thanks />} />
     </Routes>
      <Footer />
     </>

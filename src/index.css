@@ -3,8 +3,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-display: "Outfit", "sans-serif";
-  --font-sans: "Plus Jakarta Sans", "sans-serif";
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --color-primary: "#8B5CF6";
   --color-background-light: #F0F7FF;
   --color-background-dark: #0F172A;
@@ -12,9 +12,27 @@
   --color-accent-peach: #FB923C;
   --color-accent-green: #10B981;
 
+  --color-cream-blue: #f0f7ff;
+  --color-soft-purple: #e9d5ff;
+  --color-soft-peach: #ffedd5;
+  --color-soft-pink: #fce7f3
+
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
   --radius-3xl: 2rem;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes fade-in-up {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
 }
 
 @layer utilities {
@@ -43,4 +61,26 @@
   .glow-avatar {
     box-shadow: 0 0 40px -10px rgba(139, 92, 246, 0.5);
   }
+
+  .glass-card {
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    }
+
+    .budy {
+      /* Gradient background using the requested palette */
+      background: radial-gradient(circle at top left, #f0f7ff, transparent),
+                  radial-gradient(circle at bottom right, #fce7f3, transparent),
+                  radial-gradient(circle at top right, #e9d5ff, transparent),
+                  radial-gradient(circle at bottom left, #ffedd5, transparent);
+      background-color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
 }

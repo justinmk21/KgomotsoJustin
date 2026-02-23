@@ -9,8 +9,8 @@ function Footer() {
                         <span className="font-display font-extrabold text-xl">Kgomotso</span>
                     </div>
                     <div className="flex gap-8 text-slate-400">
-                        <a className="hover:text-white transition-colors" href="#">LinkedIn</a>
-                        <a className="hover:text-white transition-colors" href="#">GitHub</a>
+                        <a className="hover:text-white transition-colors" href="https://www.linkedin.com/in/kgomotso-mkhawane-4769bb219">LinkedIn</a>
+                        <a className="hover:text-white transition-colors" href="https://github.com/justinmk21">GitHub</a>
                     </div>
                 </div>
                 <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4 text-slate-500 text-sm">

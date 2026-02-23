@@ -2,7 +2,7 @@ import { useDarkMode } from "../useDarkMode";
 import kgomotso from "../assets/Justin.jpg";
 import Drums from "../assets/Drums.jpg";
 import Cosmetic from "../assets/promo2.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { projects, socialLinks } from "../constant";
 import { useForm, ValidationError } from "@formspree/react"
@@ -14,13 +14,15 @@ function Home() {
     const navigate = useNavigate();
     const [state, handleSubmit] = useForm("xbdaapal");
 
-    if (state.succeeded) {
-        return <p>Thanks for your message. I will get back to you as soon as possible.</p>
-    }
-
     const handleLink = (link) => {
         window.open(link, "_blank");
     };
+
+    useEffect(() => {
+        if (state.succeeded) {
+            navigate("/thanks");
+        }
+    }, [state.succeeded, navigate]);
 
 
     return (
@@ -67,8 +69,8 @@ function Home() {
                         </div>
                         <div className="mt-12 flex items-center justify-center md:justify-start gap-6 text-slate-400">
                             <span onClick={()=>handleLink(socialLinks[0].url)} className="material-icons-round cursor-pointer hover:text-primary transition-colors">email</span>
-                            <span onClick={()=>handleLink(socialLinks[1].url)} className="material-icons-round cursor-pointer hover:text-primary transition-colors">link</span>
-                            <span onClick={()=>handleLink(socialLinks[2].url)} className="material-icons-round cursor-pointer hover:text-primary transition-colors">code</span>
+                            <span onClick={()=>handleLink(socialLinks[2].url)} className="material-icons-round cursor-pointer hover:text-primary transition-colors">link</span>
+                            <span onClick={()=>handleLink(socialLinks[1].url)} className="material-icons-round cursor-pointer hover:text-primary transition-colors">code</span>
                         </div>
                     </div>
                     <div className="flex-1 relative">
@@ -337,7 +339,7 @@ function Home() {
                                     <textarea className="w-full px-4 py-3 rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-primary focus:border-primary" placeholder="How can I help you?" rows="4" id="message" name="message"></textarea>
                                     <ValidationError prefix="Message" field="message" errors={state.errors} />
                                 </div>
-                                <button  className="w-full py-4 vibrant-gradient text-white font-bold rounded-2xl hover:shadow-xl transition-all hover:scale-[1.01]" type="submit" disabled={state.submitting} >
+                                <button  className="w-full py-4 vibrant-gradient text-white font-bold rounded-2xl hover:shadow-xl transition-all hover:scale-[1.01] cursor-pointer" type="submit" disabled={state.submitting} >
                                     Send Message
                                 </button>
                             </form>
